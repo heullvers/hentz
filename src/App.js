@@ -1,23 +1,17 @@
-import {createGlobalStyle, ThemeProvider} from 'styled-components';
-import NavBar from './components/NavBar.js';
-import Superior from './components/Superior.js';
+import {createGlobalStyle} from 'styled-components';
+import Home from './components/Home';
+import NavBar from './components/NavBar';
+import Superior from './components/Superior';
 
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle></GlobalStyle>
-        <Superior></Superior>
-        <NavBar></NavBar>
-      </ThemeProvider>
+      <GlobalStyle></GlobalStyle>
+      <Superior></Superior>
+      <NavBar></NavBar>
+      <Home></Home>
     </>
   );
-}
-
-const theme = {
-  colors: {
-    primary: '#f0424e'
-  }
 }
 
 

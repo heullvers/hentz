@@ -17,7 +17,7 @@ class NavBar extends Component{
     render(){
         return(
             <header id="header">
-                <a id="logo">HENTZ</a>
+                <a id="logo" href="#home">HENTZ</a>
                 <nav id="nav">
                     <button id="btn-mobile" onClick={this.toggleMenu}>
                         <span id="toggle"><i className={this.state.menu ? "fas fa-times":"fas fa-bars" }></i></span>

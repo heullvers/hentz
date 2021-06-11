@@ -2,6 +2,7 @@ import {createGlobalStyle} from 'styled-components';
 import Home from './components/Home';
 import NavBar from './components/NavBar';
 import Superior from './components/Superior';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Superior></Superior>
       <NavBar></NavBar>
       <Home></Home>
+      <Footer></Footer>
     </>
   );
 }

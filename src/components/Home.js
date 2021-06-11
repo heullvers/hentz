@@ -14,7 +14,7 @@ class Home extends Component{
                     </div>
                     <span className="frase-calcular-dieta"><strong>DESEJA CALCULAR SUA DIETA?</strong></span><br></br>
                     <div className="container-button">
-                        <button className="button-calcular">CALCULAR<i className="fas fa-times icone-button"></i></button>
+                        <button className="button-calcular">CALCULAR<i className="fas fa-arrow-right icone-button"></i></button>
                     </div>
                     
                 </div>

@@ -1,17 +1,16 @@
 import {createGlobalStyle} from 'styled-components';
-import Home from './components/Home';
-import NavBar from './components/NavBar';
-import Superior from './components/Superior';
 import Footer from './components/Footer';
+import Routes from './Routes';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
     <>
-      <GlobalStyle></GlobalStyle>
-      <Superior></Superior>
-      <NavBar></NavBar>
-      <Home></Home>
-      <Footer></Footer>
+      <BrowserRouter>
+        <GlobalStyle></GlobalStyle>
+        <Routes></Routes>
+        <Footer></Footer>
+      </BrowserRouter>
     </>
   );
 }

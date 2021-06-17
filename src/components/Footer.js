@@ -23,7 +23,7 @@ function Footer() {
               className='footer-input'
               name='email'
               type='email'
-              placeholder='Your Email'
+              placeholder='Digite seu email'
             />
             <button className="inscricao">Inscrever-se</button>
           </form>
@@ -31,13 +31,6 @@ function Footer() {
       </section>
       <section className='social-media'>
         <div className='social-media-wrap'>
-          <div className='footer-logo'>
-            <BrowserRouter>
-                <Link to='/' className='social-logo'>
-                HENTZ
-                </Link>
-            </BrowserRouter>
-          </div>
           <small className='website-rights'>HENTZ © 2021</small>
           <div className='social-icons'>
             <BrowserRouter>

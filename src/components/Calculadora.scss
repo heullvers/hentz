@@ -1,0 +1,142 @@
+.calculadora{
+    width: 40%;
+    min-height: 620px;
+}
+
+.conteudo{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    background-color: #f1f4f5;
+}
+
+.titulo{
+    text-align: center;
+}
+/*
+select{
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 2px solid black !important;
+    border-radius: 20px;
+    background: #fff;
+    flex: 1;
+    padding: 0 .5 rem;
+    color: #000;
+    cursor: pointer;
+}
+
+.select{
+    position: relative;
+    display: flex;
+    width: 15em;
+    height: 3em;
+    line-height: 3;
+    overflow: hidden;
+    border-radius: .25em;
+}
+
+.select::after{
+    content: '\25BC';
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #000;
+    border: 2px solid black;
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+*/
+
+.input-age-weight-height{
+    margin: 10px;
+    appearance: none;
+    background: transparent;
+    padding: 12px;
+    border-radius: 20px;
+    outline: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid #000;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    width: 200px;
+}
+
+.select{
+    margin: 10px;
+    width: 200px;
+    background: transparent;
+    padding: 12px;
+    border-radius: 20px;
+    outline: none;
+    color: #000;
+    font-size: 14px;
+    border: 2px solid #000;
+}
+
+.divParams{
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.calcular{
+    display: flex;
+    justify-content: center;
+}
+
+.btn{
+    padding: 10px;
+    width: 220px;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    font-weight: 900;
+}
+
+.campo{
+    font-weight: 100;
+}
+
+.gender{
+    margin: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 760px) {
+
+    .calculadora{
+        width: 100%;
+        padding: 10px;    
+    
+    }
+
+    .btn{
+        margin-top: 10px;
+    }
+
+    .divParams{
+        justify-content: start;
+    }
+}
+
+@media (min-width: 760px) {
+    .btn{
+        margin-top: 30px;
+    }
+
+    
+    .titulo{
+        margin-bottom: 100px;
+    }
+}

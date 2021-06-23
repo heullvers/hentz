@@ -14,6 +14,7 @@
 .titulo{
     text-align: center;
 }
+
 /*
 select{
     appearance: none;
@@ -53,7 +54,7 @@ select{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-*/
+
 
 .input-age-weight-height{
     margin: 10px;
@@ -70,11 +71,10 @@ select{
     -moz-appearance: textfield;
     width: 200px;
 }
-
+*/
 .select{
-    margin: 10px;
     width: 200px;
-    background: transparent;
+    background: #fff;
     padding: 12px;
     border-radius: 20px;
     outline: none;
@@ -85,13 +85,14 @@ select{
 
 .divParams{
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
 .calcular{
     display: flex;
     justify-content: center;
+    padding-bottom: 20px;
 }
 
 .btn{

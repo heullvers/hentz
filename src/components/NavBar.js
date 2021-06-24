@@ -15,7 +15,6 @@ const NavBar = (props) => {
 
     function handleClick () {
         menuClick({menuzinho: !menu.menuzinho});
-        console.log(menu);
     }
 
     return(

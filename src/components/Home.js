@@ -1,6 +1,5 @@
 import React, { Component }  from 'react';
 import './Home.scss';
-import Musculoso from './../images/fotohome.png';
 import Nutricao from './../images/nutricao.png';
 //import Mulher from './../images/foromulhercortada.png';
 import Superior from './Superior';

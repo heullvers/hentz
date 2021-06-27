@@ -2,8 +2,10 @@ import React from 'react';
 import NavBar from './NavBar';
 import Input from './Input';
 import styled from 'styled-components';
+import { Formik, Field , Form} from 'formik';
 
 import {useHistory} from 'react-router-dom';
+import { useState } from 'react';
 
 const Container = styled.div`
     display: flex;
@@ -14,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Calculator = styled.div`
-    width: 40%;
+    width: 50%;
     min-height: 620px;
 
     h1{
@@ -61,6 +63,7 @@ const Gender = styled.div`
 
 `;
 
+
 const ContainerButton = styled.div`
     display: flex;
     justify-content: center;
@@ -72,6 +75,7 @@ const Parametros = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    width: 100%;
 `;
 
 const Botao = styled.button`
@@ -106,45 +110,68 @@ const Calculadora = () => {
         history.push({pathname:"/resultado"});
     }
 
+    function onSubmit(values, actions){
+        console.log(values);
+
+    }
+
     return(
         <>  
             <NavBar cor="vermelho"></NavBar>
             <Container>
                 <Calculator>
                     <h1>CALCULADORA</h1>
-                    <form>
-                        <h3> Qual seu físico atual? </h3>
-                        <Options name="fisico">
-                            <option value="magro">Magro</option>
-                            <option value="pesonormal">Peso normal</option>
-                            <option value="sobrepeso">Sobrepeso</option>
-                            <option value="obeso">Obeso</option>
-                        </Options>
-                        <h3> SEXO </h3>
-                        <Gender>
-                            <input type="radio" id="male" name="gender" value="male"/>
-                            <label>Masculino</label>
-                            <input type="radio" id="female" name="gender" value="female"/>
-                            <label>Feminino</label>
-                        </Gender>
-                        <h3> Parâmetros </h3>
-                        <Parametros>
-                            <Input nome="peso(kg)"></Input>
-                            <Input nome="altura(cm)"></Input>
-                            <Input nome="idade"></Input>
-                        </Parametros>
-                        <h3> Nível de atividade </h3>
-                        <Options name="fisico">
-                            <option value="sedentario">Sedentário</option>
-                            <option value="leve">Exercício leve</option>
-                            <option value="ativo">Moderadamente ativo</option>
-                            <option value="muito">Muito Ativo</option>
-                            <option value="muitoAtivo">Extremamente Ativo</option>
-                        </Options>
-                        <ContainerButton>
-                            <Botao type="button" className="botao-calcular btn" onClick={calcular}>CALCULAR</Botao>
-                        </ContainerButton>
-                    </form>
+                    <Formik
+                    onSubmit={onSubmit}
+                    initialValues={{
+                        fisico: 'magro',
+                        gender: '',
+                        peso: '',
+                        altura: '',
+                        idade: '',
+                        atividade: 'sedentario'
+                    }}
+                    render={({values}) => (
+                        <Form>
+                            <h3> Qual seu físico atual? </h3>
+                            <Field as={Options} name="fisico">
+                                <option value="magro">Magro</option>
+                                <option value="pesonormal">Peso normal</option>
+                                <option value="sobrepeso">Sobrepeso</option>
+                                <option value="obeso">Obeso</option>
+                            </Field>
+                            <h3> SEXO </h3>
+                            <Field as={Gender}>
+                                <input type="radio" id="male" name="gender" value="male"/>
+                                <label>Masculino</label>
+                                <input type="radio" id="female" name="gender" value="female"/>
+                                <label>Feminino</label>
+                            </Field>
+                            <h3> Parâmetros </h3>
+                            <Parametros>
+                                <Field as={Input} nome="peso(kg)" name="peso" type="number" ></Field>
+                                <Field as={Input} nome="altura(cm)" name="altura" type="number"></Field>
+                                <Field as={Input} nome="idade" name="idade" type="number"></Field>
+                            </Parametros>
+                            <h3> Nível de atividade </h3>
+                            <Field as={Options} name="atividade">
+                                <option value="sedentario">Sedentário</option>
+                                <option value="leve">Exercício leve</option>
+                                <option value="ativo">Moderadamente ativo</option>
+                                <option value="muito">Muito Ativo</option>
+                                <option value="muitoAtivo">Extremamente Ativo</option>
+                            </Field>
+
+                            <ContainerButton>
+                                <Botao type="submit" className="botao-calcular btn">CALCULAR</Botao>
+                            </ContainerButton>
+                        </Form>
+                    )}
+                    >
+
+                    </Formik>
+                    
+            
                 </Calculator>
             </Container>
         </>

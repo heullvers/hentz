@@ -2,53 +2,50 @@ import React from "react";
 import styled from "styled-components";
 
 
-const Label = styled.label`
-    position: relative;
-    font-size: 14px;
-    border-top: 20px solid transparent;
-    margin-bottom: 5px;
-    --field-padding: 12px;
+const Label = styled.div`
 
-    input {
-        border: 2px solid black;
-        background: #fff;
-        padding: var(--field-padding);
-        border-radius: 3px;
-        width: 200px;
-        outline: none;
-        font-size: 14px;
-        border-radius: 20px;
-    }
+  position: relative;
+  height: 48px;
+  width: 220px;
+  margin-bottom: 3rem;
 
-    span {
-        position: absolute;
-        left: var(--field-padding);
-        width: calc(100% - (var(--field-padding) * 2));
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        top: 22px;
-        line-height: 100%;
-        transform: translateY(-50%);
-        color: grey;
-        transition: 
-        top 0.3s ease,
-        color 0.3s ease,
-        font-size 0.3s ease;
-    }
+  input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: ${props => props.erroInput ? "2px solid red" : "2px solid black"};
+      border-radius: 3rem;
+      outline:none;
+      padding: .75rem;
+      background: #fff;
+      z-index: 1;
+  }
 
-    input:focus + span{
-        top: -10px;
-        font-size: 10px;
-        color: #222;
-    }
+  p{
+      margin-top: 60px;
+      font-size: 14px;
+      color: red;
+  }
+
+  input:-webkit-outer-spin-button,
+  input:-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number]{
+    -moz-appearance: textfield;
+  }
+  
+
+
 `;
 
 const Input = (props) => {
     return( 
-        <Label className="custom-field three">
-            <input type="text" placeholder="&nbsp;" name="name"/>
-            <span className="placeholder">{props.nome}</span>
+        <Label>
+            <input type={props.type} name={props.name} onKeyUp={props.onChange} placeholder={props.nome}/>
+            <p>{}</p>
         </Label>
     );
 }

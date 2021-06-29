@@ -44,8 +44,8 @@ const Label = styled.div`
 const Input = (props) => {
     return( 
         <Label>
-            <input type={props.type} name={props.name} onKeyUp={props.onChange} placeholder={props.nome}/>
-            <p>{}</p>
+            <input type={props.type} name={props.name} onKeyUp={props.onChange} placeholder={props.nome} />
+            <p>{props.erro}</p>
         </Label>
     );
 }

@@ -3,6 +3,7 @@ import NavBar from './NavBar';
 import Input from './Input';
 import styled from 'styled-components';
 import { Formik, Field , Form} from 'formik';
+import schema from './schema';
 
 import {useHistory} from 'react-router-dom';
 import { useState } from 'react';
@@ -40,6 +41,15 @@ const Calculator = styled.div`
         }
     }
 
+
+`;
+
+const Formulario = styled(Form)`
+
+    p {
+        font-size: 14px;
+        color: red;
+    }
 
 `;
 
@@ -111,7 +121,7 @@ const Calculadora = () => {
     }
 
     function onSubmit(values, actions){
-        console.log(values);
+        history.push({pathname:"/resultado"});
 
     }
 
@@ -123,6 +133,7 @@ const Calculadora = () => {
                     <h1>CALCULADORA</h1>
                     <Formik
                     onSubmit={onSubmit}
+                    validationSchema={schema}
                     initialValues={{
                         fisico: 'magro',
                         gender: '',
@@ -131,15 +142,21 @@ const Calculadora = () => {
                         idade: '',
                         atividade: 'sedentario'
                     }}
-                    render={({values}) => (
-                        <Form>
+                    render={({values, errors}) => (
+                        <Formulario>
                             <h3> Qual seu físico atual? </h3>
+                            {errors.fisico && (
+                                <p>{errors.fisico}</p>
+                            )}
                             <Field as={Options} name="fisico">
                                 <option value="magro">Magro</option>
                                 <option value="pesonormal">Peso normal</option>
                                 <option value="sobrepeso">Sobrepeso</option>
                                 <option value="obeso">Obeso</option>
                             </Field>
+                            {errors.gender && (
+                                <p>{errors.gender}</p>
+                            )}
                             <h3> SEXO </h3>
                             <Field as={Gender}>
                                 <input type="radio" id="male" name="gender" value="male"/>
@@ -149,9 +166,9 @@ const Calculadora = () => {
                             </Field>
                             <h3> Parâmetros </h3>
                             <Parametros>
-                                <Field as={Input} nome="peso(kg)" name="peso" type="number" ></Field>
-                                <Field as={Input} nome="altura(cm)" name="altura" type="number"></Field>
-                                <Field as={Input} nome="idade" name="idade" type="number"></Field>
+                                <Field as={Input} nome="peso(kg)" name="peso" type="number" erro={errors.peso} ></Field>
+                                <Field as={Input} nome="altura(cm)" name="altura" type="number" erro={errors.altura}></Field>
+                                <Field as={Input} nome="idade" name="idade" type="number" erro={errors.idade}></Field>
                             </Parametros>
                             <h3> Nível de atividade </h3>
                             <Field as={Options} name="atividade">
@@ -165,7 +182,7 @@ const Calculadora = () => {
                             <ContainerButton>
                                 <Botao type="submit" className="botao-calcular btn">CALCULAR</Botao>
                             </ContainerButton>
-                        </Form>
+                        </Formulario>
                     )}
                     >
 

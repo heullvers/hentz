@@ -6,7 +6,6 @@ import { Formik, Field , Form} from 'formik';
 import schema from './schema';
 
 import {useHistory} from 'react-router-dom';
-import { useState } from 'react';
 
 const Container = styled.div`
     display: flex;
@@ -50,6 +49,12 @@ const Formulario = styled(Form)`
         font-size: 14px;
         color: red;
     }
+
+    span{
+        margin-left: 10px;
+        font-size: 12px;
+    }
+    
 
 `;
 
@@ -115,13 +120,134 @@ const Botao = styled.button`
 
 const Calculadora = () => {
     let history = useHistory();
-    
-    const calcular = (param)=>{
-        history.push({pathname:"/resultado"});
+
+    const calculateIMC = (weight, height) => {
+        
+        return weight / (height * height);
+
+    }
+
+    const calculateWater = (weight) => {
+        
+        return weight * 0.035;
+
+    }
+
+    const calculateHarris = (age, weight, height, gender) => {
+        let basal = 0;
+        if(gender){ //homem
+            basal += 66.5 + (13.75 * weight) + (5.003 * height) - (6.755 * age);
+        }
+        else{ //mulher
+            basal += 655.1 + (9.563 * weight) + (1.850 * height) - (4.676 * age);
+        }
+
+        return basal;
+    }
+
+    const calculateMifflin = (age, weight, height, gender) => {
+        let basal = 0;
+        if(gender){ //homem
+            basal += (10 * weight) + (6.25 * height) - (5 * age) + 5;
+        }
+        else{ //mulher
+            basal += (10 * weight) + (6.25 * height) - (5 * age) - 161;
+        }
+
+        return basal;
+    }
+
+    const calculateGet = (basal, activity) => {
+        let get = 0;
+        if(activity === "1"){
+            get = basal * 1.2;
+        }
+        else if(activity === "2"){
+            get = basal * 1.375;
+        }
+        else if(activity === "3"){
+            get = basal * 1.52;
+        }
+        else if(activity === "4"){
+            get = basal * 1.7;
+        }
+        else{
+            get = basal * 1.9;
+        }
+
+        return get;
+    }
+
+    function selectAlterado(e){
+        if(e.target.value === "1"){
+            document.getElementById("explicacaoAtividade").innerHTML = "pouco ou nenhum exercício";
+        }
+        else if(e.target.value === "2"){
+            document.getElementById("explicacaoAtividade").innerHTML = "1-3 dias por semana";
+        }   
+        else if(e.target.value === "3"){
+            document.getElementById("explicacaoAtividade").innerHTML = "3-5 dias por semana";
+        }
+        else if(e.target.value === "4"){
+            document.getElementById("explicacaoAtividade").innerHTML = "6-7 dias por semana";
+        }
+        else if (e.target.value === "5"){
+            //5
+            document.getElementById("explicacaoAtividade").innerHTML = "2x por dia 6-7 dias por semana";
+        }
+        
     }
 
     function onSubmit(values, actions){
-        history.push({pathname:"/resultado"});
+        let physique = values.fisico;
+        let gender = values.gender;
+        let weight = values.peso;
+        let height = values.altura;
+        let age = values.idade;
+        let activity = values.atividade;
+        let goal = values.objetivo;
+
+
+        //calculo basal
+        let basal = 0;
+        if(physique !== "obeso"){
+            //magro, normal e sobrepeso
+            basal = calculateHarris(age, weight, height, gender);
+        }
+        else{
+            //obeso
+            basal = calculateMifflin(age, weight, height, gender);
+        }
+
+        let manutencao = calculateGet(basal, activity);
+
+        let objetivoPerder = manutencao - 500;
+        let objetivoManter = manutencao;
+        let objetivoGanhar = manutencao + 500;
+
+        //calculo imc
+        let imc = calculateIMC(weight, height/100);
+        let imcChoice = 0;
+
+        if(imc <= 18.5){
+            imcChoice = "1";
+        }
+        else
+        if (imc <= 24.99) {
+            imcChoice = "2";
+        }
+        else
+        if (imc <= 29.99) {
+            imcChoice = "3";
+        }
+        else{
+            imcChoice = "4";
+        }
+        
+        //calculo água
+        let water = calculateWater(weight);
+
+        history.push({pathname:"/resultado", state: {manutencao, basal, activity, objetivoPerder, objetivoManter, objetivoGanhar, imcChoice, goal, water}});
 
     }
 
@@ -135,49 +261,67 @@ const Calculadora = () => {
                     onSubmit={onSubmit}
                     validationSchema={schema}
                     initialValues={{
-                        fisico: 'magro',
+                        fisico: '',
                         gender: '',
                         peso: '',
                         altura: '',
                         idade: '',
-                        atividade: 'sedentario'
+                        atividade: '',
+                        objetivo: ''
                     }}
                     render={({values, errors}) => (
                         <Formulario>
                             <h3> Qual seu físico atual? </h3>
+                            <Field as={Options} name="fisico">
+                                <option hidden>Selecione</option>
+                                <option value="1">Magro</option>
+                                <option value="2">Peso normal</option>
+                                <option value="3">Sobrepeso</option>
+                                <option value="4">Obeso</option>
+                            </Field>
                             {errors.fisico && (
                                 <p>{errors.fisico}</p>
                             )}
-                            <Field as={Options} name="fisico">
-                                <option value="magro">Magro</option>
-                                <option value="pesonormal">Peso normal</option>
-                                <option value="sobrepeso">Sobrepeso</option>
-                                <option value="obeso">Obeso</option>
+                            <h3> Nível de atividade </h3>
+                            <Field as={Options} name="atividade" onClick={selectAlterado}>
+                                <option hidden>Selecione</option>
+                                <option value="1">Sedentário</option>
+                                <option value="2">Levemente ativo</option>
+                                <option value="3">Moderadamente ativo</option>
+                                <option value="4">Muito Ativo</option>
+                                <option value="5">Extremamente Ativo</option>
+                            </Field>
+                            <span id="explicacaoAtividade"></span>
+                            {errors.atividade && (
+                                <p>{errors.atividade}</p>
+                            )}
+
+                            <h3> Objetivo </h3>
+                            <Field as={Options} name="objetivo">
+                                <option hidden>Selecione</option>
+                                <option value="2">Emagrecer</option>
+                                <option value="3">Manter</option>
+                                <option value="4">Ganhar</option>
+                            </Field>
+                            {errors.objetivo && (
+                                <p>{errors.objetivo}</p>
+                            )}
+                            <h3> SEXO </h3>
+                            <Field as={Gender}>
+                                <input type="radio" id="male" name="gender" value="1"/>
+                                <label>Masculino</label>
+                                <input type="radio" id="female" name="gender" value="0"/>
+                                <label>Feminino</label>
                             </Field>
                             {errors.gender && (
                                 <p>{errors.gender}</p>
                             )}
-                            <h3> SEXO </h3>
-                            <Field as={Gender}>
-                                <input type="radio" id="male" name="gender" value="male"/>
-                                <label>Masculino</label>
-                                <input type="radio" id="female" name="gender" value="female"/>
-                                <label>Feminino</label>
-                            </Field>
                             <h3> Parâmetros </h3>
                             <Parametros>
                                 <Field as={Input} nome="peso(kg)" name="peso" type="number" erro={errors.peso} ></Field>
                                 <Field as={Input} nome="altura(cm)" name="altura" type="number" erro={errors.altura}></Field>
                                 <Field as={Input} nome="idade" name="idade" type="number" erro={errors.idade}></Field>
                             </Parametros>
-                            <h3> Nível de atividade </h3>
-                            <Field as={Options} name="atividade">
-                                <option value="sedentario">Sedentário</option>
-                                <option value="leve">Exercício leve</option>
-                                <option value="ativo">Moderadamente ativo</option>
-                                <option value="muito">Muito Ativo</option>
-                                <option value="muitoAtivo">Extremamente Ativo</option>
-                            </Field>
 
                             <ContainerButton>
                                 <Botao type="submit" className="botao-calcular btn">CALCULAR</Botao>

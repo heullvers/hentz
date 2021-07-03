@@ -14,8 +14,13 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-`;
 
+    p{
+      color: white;
+      font-size: 14px;
+    }
+`;
+/*
 const Subscription = styled.section`
     display: flex;
     flex-direction: column;
@@ -70,7 +75,7 @@ const Formulario = styled.form`
       background-color: #f0424e;
     }
 `;
-
+*/
 const SocialMedia = styled.section`
   max-width: 1000px;
   width: 100%;
@@ -108,18 +113,6 @@ const NavLink = styled(Link)`
 function Footer() {
   return (
     <Container>
-      <Subscription>
-        <p>
-          Seja membro exclusivo para receber novidades!
-        </p>
-        <p>
-          Você pode se desinscrever a qualquer momento.
-        </p>
-          <Formulario>
-            <input name='email'type='email' placeholder='Digite seu email'/>
-            <button>Inscrever-se</button>
-          </Formulario>
-      </Subscription>
       <SocialMedia>
         <SocialMediaWrap>
           <small>HENTZ © 2021</small>
@@ -132,6 +125,7 @@ function Footer() {
           </SocialIcon>
         </SocialMediaWrap>
       </SocialMedia>
+      <p>Desenvolvido por @duxsystems</p>
     </Container>
   );
 }

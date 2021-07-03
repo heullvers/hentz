@@ -43,8 +43,9 @@
 
 .frase{
     text-align: center;
-    font-family: 'Londrina Solid', cursive;
+    font-family: 'Oswald', sans-serif;
     font-size: 70px;
+    text-transform: uppercase;
 }
 
 #subfrase{
@@ -58,6 +59,7 @@
     display: inline-block;
     width: 100%;
     height: 50px;
+    text-transform: uppercase;
 }
 
 .frase-calcular-dieta{
